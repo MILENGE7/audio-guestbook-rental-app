@@ -1,5 +1,8 @@
 ﻿# Audio Guestbook Rental Web Application
 
+![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=white)
+
 This is a PostgreSQL-backed MVP for the Audio Guestbook Rental SRS.
 
 ## Requirements
