@@ -1,0 +1,149 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>C&J</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#home" data-view-link="home" aria-label="C&J home">
+        <img src="assets/cj-logo-badge.png" alt="C&J logo" class="brand-mark-img">
+        <span><strong>C&J</strong><small>Vintage phone rentals</small></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation"><span></span><span></span><span></span></button>
+      <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
+        <a href="#home" data-view-link="home" class="active">Home</a>
+        <a href="#gallery" data-view-link="gallery">Gallery</a>
+        <a href="#booking" data-view-link="booking">Book</a>
+        <a href="#status" data-view-link="status">Status</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="home" class="view active" aria-labelledby="home-title">
+        <div class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow">Weddings, parties, memorials, showers, brand events</p>
+            <h1 id="home-title">C&J — Vintage guestbook rentals</h1>
+            <p class="lede">A polished vintage telephone setup that lets guests leave voice messages during your event. Choose a package, check your date, and send a booking request in one flow.</p>
+            <div class="hero-actions">
+              <a class="button primary" href="#booking" data-view-link="booking">Start booking</a>
+              <a class="button secondary" href="#gallery" data-view-link="gallery">View setups</a>
+            </div>
+          </div>
+          <picture class="hero-media">
+            <img src="assets/vintage-phone-hero.png" alt="Vintage rotary telephone arranged on an event welcome table">
+          </picture>
+        </div>
+
+        <div class="quick-panel">
+          <form id="home-availability-form" class="inline-form">
+            <label for="home-date">Check a date</label>
+            <input id="home-date" name="date" type="date" required>
+            <button class="button primary" type="submit">Check availability</button>
+          </form>
+          <div id="home-availability-result" class="status-card neutral" aria-live="polite">Select an event date to see whether the telephone is open.</div>
+        </div>
+
+        <section class="section" aria-labelledby="packages-title">
+          <div class="section-heading">
+            <p class="eyebrow">Rental packages</p>
+            <h2 id="packages-title">Choose the right setup</h2>
+          </div>
+          <div id="packages-grid" class="card-grid"></div>
+        </section>
+      </section>
+
+      <section id="gallery" class="view" aria-labelledby="gallery-title">
+        <div class="section page-intro">
+          <div class="section-heading">
+            <p class="eyebrow">Gallery</p>
+            <h2 id="gallery-title">Vintage phone setups</h2>
+          </div>
+          <p>See how the audio guestbook can sit naturally with florals, signage, welcome tables, and evening reception details.</p>
+        </div>
+        <div id="gallery-grid" class="gallery-grid"></div>
+      </section>
+
+      <section id="booking" class="view" aria-labelledby="booking-title">
+        <div class="section page-intro">
+          <div class="section-heading">
+            <p class="eyebrow">Booking request</p>
+            <h2 id="booking-title">Reserve your event date</h2>
+          </div>
+          <p>The form checks availability before creating a booking reference. Payments and confirmations are simulated for this MVP.</p>
+        </div>
+
+        <div class="form-layout">
+          <form id="booking-form" class="panel form-panel">
+            <div class="field two">
+              <label>Full name<input name="fullName" type="text" autocomplete="name" required></label>
+              <label>Phone<input name="phone" type="tel" autocomplete="tel" required></label>
+            </div>
+            <div class="field two">
+              <label>Email<input name="email" type="email" autocomplete="email" required></label>
+              <label>Event type
+                <select name="eventType" required>
+                  <option value="">Select event</option>
+                  <option>Wedding</option><option>Birthday</option><option>Baby shower</option><option>Corporate event</option><option>Graduation</option><option>Memorial</option><option>Other</option>
+                </select>
+              </label>
+            </div>
+            <div class="field two">
+              <label>Event date<input name="eventDate" type="date" required></label>
+              <label>Package<select name="packageId" id="package-select" required></select></label>
+            </div>
+            <label>Venue<input name="venue" type="text" autocomplete="street-address" required></label>
+            <label>Notes<textarea name="notes" rows="4" placeholder="Delivery window, theme, access details, or anything we should know"></textarea></label>
+
+            <fieldset class="choice-set">
+              <legend>Payment option</legend>
+              <label><input type="radio" name="paymentChoice" value="deposit" checked>Deposit</label>
+              <label><input type="radio" name="paymentChoice" value="full">Full payment</label>
+              <label><input type="radio" name="paymentChoice" value="later">Pay later</label>
+            </fieldset>
+
+            <button class="button primary wide" type="submit">Submit booking</button>
+          </form>
+
+          <aside class="panel summary-panel" aria-live="polite">
+            <h3>Booking summary</h3>
+            <div id="booking-summary">Choose a package and date to preview your booking.</div>
+            <div id="booking-message" class="message hidden"></div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="status" class="view" aria-labelledby="status-title">
+        <div class="section page-intro">
+          <div class="section-heading"><p class="eyebrow">Customer status</p><h2 id="status-title">Find your booking</h2></div>
+          <p>Use your booking reference or email address to check confirmation, payment, and recording access.</p>
+        </div>
+        <div class="form-layout compact">
+          <form id="status-form" class="panel form-panel">
+            <label>Reference or email<input name="lookup" type="text" placeholder="AGB-260824-1234 or name@example.com" required></label>
+            <button class="button primary" type="submit">View booking status</button>
+          </form>
+          <div id="status-result" class="panel status-result"><h3>Status result</h3><p>Search for a booking to view its current stage.</p></div>
+        </div>
+      </section>
+    </main>
+
+<footer class="footer"><span>C&J — Every voice, forever kept.</span><span>📞 0781 347 661 · ✉️ hirwajoshua3@gmail.com</span></footer>
+    <template id="package-template">
+      <article class="card package-card">
+        <div class="package-top"><h3></h3><span class="price"></span></div>
+        <p class="description"></p>
+        <ul class="includes"></ul>
+        <div class="tag-row"></div>
+        <button class="button secondary choose-package" type="button">Choose package</button>
+      </article>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
+
+

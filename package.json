@@ -1,0 +1,17 @@
+﻿{
+  "name": "audio-guestbook-rental-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PostgreSQL-backed MVP for audio guestbook rental booking and administration.",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check app.js && node --check scripts/migrate.js && node --check scripts/set-admin.js",
+    "db:migrate": "node scripts/migrate.js",
+    "db:up": "docker compose up -d postgres",
+    "db:down": "docker compose down",
+    "admin:set": "node scripts/set-admin.js"
+  },
+  "dependencies": {
+    "pg": "^8.13.1"
+  }
+}

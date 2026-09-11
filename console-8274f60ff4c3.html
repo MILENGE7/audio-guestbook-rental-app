@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>C&J Admin</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="C&J home">
+        <img src="assets/cj-logo-badge.png" alt="C&J logo" class="brand-mark-img">
+        <span><strong>C&J</strong><small>Admin dashboard</small></span>
+      </a>
+    </header>
+
+    <main>
+      <section aria-labelledby="admin-title">
+        <div class="section page-intro">
+          <div class="section-heading"><p class="eyebrow">Administrator</p><h2 id="admin-title">Operations dashboard</h2></div>
+          <p>Manage bookings, calendar blocks, payments, recordings, packages, and reports.</p>
+        </div>
+
+        <div id="admin-login-panel" class="panel login-panel">
+          <form id="admin-login-form" class="form-panel">
+            <div class="field two">
+              <label>Email<input name="email" type="email" autocomplete="username" required></label>
+              <label>Password<input name="password" type="password" autocomplete="current-password" required></label>
+            </div>
+            <button class="button primary" type="submit">Log in</button>
+            <div id="admin-login-message" class="message hidden"></div>
+          </form>
+        </div>
+
+        <div id="admin-dashboard" class="dashboard hidden">
+          <div class="admin-toolbar">
+            <div><h3>Dashboard</h3><p id="admin-subtitle">Live data saved in PostgreSQL.</p></div>
+            <button id="admin-logout" class="button secondary" type="button">Log out</button>
+          </div>
+          <div id="admin-notice" class="message hidden" role="alert"></div>
+          <div id="admin-metrics" class="metrics-grid"></div>
+
+          <div class="tabs" role="tablist" aria-label="Admin sections">
+            <button class="tab active" type="button" id="tab-bookings" role="tab" aria-selected="true" aria-controls="admin-tab-bookings" data-admin-tab="bookings">Bookings</button>
+            <button class="tab" type="button" id="tab-calendar" role="tab" aria-selected="false" aria-controls="admin-tab-calendar" data-admin-tab="calendar">Calendar</button>
+            <button class="tab" type="button" id="tab-payments" role="tab" aria-selected="false" aria-controls="admin-tab-payments" data-admin-tab="payments">Payments</button>
+            <button class="tab" type="button" id="tab-recordings" role="tab" aria-selected="false" aria-controls="admin-tab-recordings" data-admin-tab="recordings">Recordings</button>
+            <button class="tab" type="button" id="tab-reports" role="tab" aria-selected="false" aria-controls="admin-tab-reports" data-admin-tab="reports">Reports</button>
+          </div>
+
+          <section class="admin-section active" id="admin-tab-bookings" role="tabpanel" aria-labelledby="tab-bookings" tabindex="0">
+            <div class="panel">
+              <div class="panel-heading"><h3>Booking management</h3><button id="seed-demo" class="button secondary" type="button">Load sample bookings</button></div>
+              <div id="seed-confirm" class="message warning hidden">
+                This will add sample bookings to your current data.
+                <div class="form-actions">
+                  <button id="seed-confirm-yes" class="button primary" type="button">Add sample bookings</button>
+                  <button id="seed-confirm-no" class="button secondary" type="button">Cancel</button>
+                </div>
+              </div>
+              <div id="booking-table" class="table-wrap"></div>
+            </div>
+            <form id="admin-edit-form" class="panel form-panel hidden">
+              <input type="hidden" name="ref">
+              <h3>Edit booking</h3>
+              <div class="field two"><label>Full name<input name="fullName" type="text" required></label><label>Phone<input name="phone" type="tel" required></label></div>
+              <div class="field two"><label>Email<input name="email" type="email" required></label><label>Event date<input name="eventDate" type="date" required></label></div>
+              <div class="field two"><label>Event type<input name="eventType" type="text" required></label><label>Venue<input name="venue" type="text" required></label></div>
+              <label>Notes<textarea name="notes" rows="3"></textarea></label>
+              <div class="form-actions"><button class="button primary" type="submit">Save edits</button><button id="cancel-edit" class="button secondary" type="button">Cancel edit</button></div>
+            </form>
+          </section>
+
+          <section class="admin-section" id="admin-tab-calendar" role="tabpanel" aria-labelledby="tab-calendar" tabindex="0">
+            <div class="form-layout compact in-dashboard">
+              <form id="block-date-form" class="panel form-panel">
+                <h3>Block unavailable date</h3>
+                <label>Date<input name="date" type="date" required></label>
+                <label>Reason<input name="reason" type="text" placeholder="Maintenance, travel, private event"></label>
+                <button class="button primary" type="submit">Block date</button>
+              </form>
+              <div class="panel"><h3>Blocked dates</h3><div id="blocked-list" class="list-stack"></div></div>
+            </div>
+          </section>
+
+          <section class="admin-section" id="admin-tab-payments" role="tabpanel" aria-labelledby="tab-payments" tabindex="0">
+            <form id="payment-form" class="panel form-panel">
+              <h3>Record payment</h3>
+              <div class="field two"><label>Booking<select name="ref" id="payment-booking-select" required></select></label><label>Amount<input name="amount" type="number" min="1" step="1" required></label></div>
+              <div class="field two"><label>Method<select name="method" required><option>Cash</option><option>Card</option><option>Mobile money</option><option>Bank transfer</option></select></label><label>Receipt note<input name="note" type="text" placeholder="Transaction ID or reference"></label></div>
+              <button class="button primary" type="submit">Save payment</button>
+            </form>
+            <div id="payment-log" class="panel"></div>
+          </section>
+
+          <section class="admin-section" id="admin-tab-recordings" role="tabpanel" aria-labelledby="tab-recordings" tabindex="0">
+            <form id="recording-form" class="panel form-panel">
+              <h3>Attach event recordings</h3>
+              <div class="field two"><label>Booking<select name="ref" id="recording-booking-select" required></select></label><label>Audio file<input name="file" type="file" accept="audio/*"></label></div>
+              <label>Share note<input name="note" type="text" placeholder="Delivery folder, handoff note, or upload status"></label>
+              <button class="button primary" type="submit">Save recording</button>
+            </form>
+            <div id="recording-list" class="panel"></div>
+          </section>
+
+          <section class="admin-section" id="admin-tab-reports" role="tabpanel" aria-labelledby="tab-reports" tabindex="0"><div id="reports-panel" class="reports-grid"></div></section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer"><span>C&J — Every voice, forever kept.</span><span>📞 0781 347 661 · ✉️ hirwajoshua3@gmail.com</span></footer>
+
+    <script src="console-8274f60ff4c3.js"></script>
+  </body>
+</html>
